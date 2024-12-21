@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class AbstractIdStatusEntity extends AbstractStatusEntity {
+public abstract class AbstractIdStatusEntity extends AbstractStatusEntity {
 
     @Id
     @Column(name = "id")
