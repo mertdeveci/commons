@@ -3,12 +3,14 @@ package com.application.exceptions;
 import com.application.exceptions.types.AlreadyExistsBusinessException;
 import com.application.exceptions.types.BadRequestBusinessException;
 import com.application.exceptions.types.NotFoundBusinessException;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.function.Supplier;
 
+@Getter
 @RequiredArgsConstructor
-public enum Exceptions implements ExceptionUtils {
+public enum CommonExceptions implements Throw {
     BAD_REQUEST("business.global.bad.request.exception"){
         @Override
         public Supplier<BusinessException> throwException(){
@@ -45,7 +47,4 @@ public enum Exceptions implements ExceptionUtils {
 
     private final String defaultErrorMessage;
 
-    public String getDefaultErrorMessage() {
-        return defaultErrorMessage;
-    }
 }

@@ -31,7 +31,7 @@ public class ResponseBuilder {
     }
 
     public class Builder{
-        private Response response;
+        private final Response response;
 
         protected Builder() {
             this.response = new Response();

@@ -1,8 +1,8 @@
 package com.application.service.crud;
 
 import com.application.entity.AbstractEntity;
-import com.application.exceptions.ExceptionUtils;
-import com.application.exceptions.Exceptions;
+import com.application.exceptions.Throw;
+import com.application.exceptions.CommonExceptions;
 
 import java.util.Optional;
 
@@ -10,10 +10,10 @@ public interface RetrieveService<T extends AbstractEntity, ID> {
    Optional<T> retrieveById(ID id);
 
    default T retrieveById(ID id, String errorCode) {
-       return retrieveById(id, Exceptions.NOT_FOUND, errorCode);
+       return retrieveById(id, CommonExceptions.NOT_FOUND, errorCode);
    }
 
-   default <E extends ExceptionUtils> T retrieveById(ID id, E e, String errorCode){
+   default <E extends Throw> T retrieveById(ID id, E e, String errorCode){
        return retrieveById(id).orElseThrow(e.throwException(errorCode));
-    }
+   }
 }

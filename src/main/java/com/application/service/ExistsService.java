@@ -1,9 +1,9 @@
 package com.application.service;
 
-import com.application.exceptions.Exceptions;
+import com.application.exceptions.CommonExceptions;
 
-import static com.application.exceptions.Exceptions.ALREADY_EXISTS;
-import static com.application.exceptions.Exceptions.NOT_FOUND;
+import static com.application.exceptions.CommonExceptions.ALREADY_EXISTS;
+import static com.application.exceptions.CommonExceptions.NOT_FOUND;
 
 public interface ExistsService<ID> {
     boolean exists(ID id);
@@ -12,7 +12,7 @@ public interface ExistsService<ID> {
         exists(id, ALREADY_EXISTS, errorCode);
     }
 
-    default void exists(ID id, Exceptions e, String errorCode){
+    default void exists(ID id, CommonExceptions e, String errorCode){
         if (exists(id)){
             e.throwException(errorCode);
         }
@@ -26,7 +26,7 @@ public interface ExistsService<ID> {
         notExists(id, NOT_FOUND, errorCode);
     }
 
-    default void notExists(ID id, Exceptions e, String errorCode){
+    default void notExists(ID id, CommonExceptions e, String errorCode){
         if (absent(id)){
             e.throwException(errorCode);
         }
