@@ -3,27 +3,28 @@ package com.application.model;
 import com.application.enums.ResponseStatus;
 
 import static com.application.enums.ResponseStatus.FAIL;
+import static com.application.enums.ResponseStatus.SUCCESS;
 
 public class ResponseBuilder {
 
     public Response ok(){
-        return new Builder().build();
+        return builder().status(SUCCESS).error(false).build();
     }
 
     public Response ok(String message){
-        return new Builder().message(message).build();
+        return builder().status(SUCCESS).error(false).message(message).build();
     }
 
     public <T> Response ok(T body){
-        return new Builder().build(body);
+        return builder().status(SUCCESS).error(false).build(body);
     }
 
     public Response error(){
-        return new Builder().error(true).status(FAIL).build();
+        return builder().status(FAIL).error(true).build();
     }
 
     public Response error(String errorCode, String errorMessage){
-        return new Builder().error(true).errorCode(errorCode).message(errorMessage).status(FAIL).build();
+        return builder().error(true).status(FAIL).errorCode(errorCode).message(errorMessage).build();
     }
 
     public Builder builder(){

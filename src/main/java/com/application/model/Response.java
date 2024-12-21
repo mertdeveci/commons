@@ -14,9 +14,4 @@ public class Response {
     private String local;
     private long systemTime;
     private ResponseBody<?> body;
-
-    public Response() {
-        this.status= ResponseStatus.SUCCESS;
-        this.systemTime = System.currentTimeMillis();
-    }
 }
