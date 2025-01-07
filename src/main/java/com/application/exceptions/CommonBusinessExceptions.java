@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 
 @Getter
 @RequiredArgsConstructor
-public enum CommonExceptions implements Throw {
+public enum CommonBusinessExceptions implements Throw {
     BAD_REQUEST("business.global.bad.request.exception"){
         @Override
         public Supplier<BusinessException> throwException(){
