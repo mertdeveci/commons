@@ -1,13 +1,12 @@
 package com.application.model;
 
-import com.application.enums.ResponseStatus;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 public class Response {
-    private ResponseStatus status;
+    private String status;
     private String message;
     private boolean error;
     private String errorCode;

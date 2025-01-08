@@ -1,45 +1,62 @@
 package com.application.model;
 
 import com.application.enums.ResponseStatus;
+import com.application.helper.DateHelper;
 
-import static com.application.enums.ResponseStatus.FAIL;
+import static com.application.enums.ResponseStatus.ERROR;
 import static com.application.enums.ResponseStatus.SUCCESS;
 
 public class ResponseBuilder {
 
+    private Builder successBuilder(){
+        return builder().systemTime().status(SUCCESS).error(false);
+    }
+
+    private Builder errorBuilder(){
+        return builder().systemTime().status(ERROR).error(true);
+    }
+
     public Response ok(){
-        return builder().status(SUCCESS).error(false).build();
+        return successBuilder().build();
     }
 
     public Response ok(String message){
-        return builder().status(SUCCESS).error(false).message(message).build();
+        return successBuilder().message(message).build();
+    }
+
+    public Response ok(String message, String local){
+        return successBuilder().message(message).local(local).build();
     }
 
     public <T> Response ok(T body){
-        return builder().status(SUCCESS).error(false).build(body);
+        return successBuilder().body(body).build();
     }
 
     public Response error(){
-        return builder().status(FAIL).error(true).build();
+        return errorBuilder().build();
+    }
+
+    public Response error(String errorMessage){
+        return errorBuilder().message(errorMessage).build();
     }
 
     public Response error(String errorCode, String errorMessage){
-        return builder().error(true).status(FAIL).errorCode(errorCode).message(errorMessage).build();
+        return errorBuilder().errorCode(errorCode).message(errorMessage).build();
     }
 
     public Builder builder(){
         return new Builder();
     }
 
-    public class Builder{
+    public static class Builder{
         private final Response response;
 
-        protected Builder() {
+        private Builder() {
             this.response = new Response();
         }
 
         public Builder status(ResponseStatus responseStatus){
-            this.response.setStatus(responseStatus);
+            this.response.setStatus(responseStatus.getStatus());
             return this;
         }
 
@@ -58,18 +75,22 @@ public class ResponseBuilder {
             return this;
         }
 
+        public Builder systemTime(){
+            this.response.setSystemTime(DateHelper.now().getTime());
+            return this;
+        }
+
         public Builder local(String local){
             this.response.setLocal(local);
             return this;
         }
 
-        public Response build(){
-            return response;
+        public <T> Builder body(T body){
+            this.response.setBody(new ResponseBody<>(body));
+            return this;
         }
 
-        public <T> Response build(T body){
-            Response response = build();
-            response.setBody(new ResponseBody<>(body));
+        public Response build(){
             return response;
         }
     }

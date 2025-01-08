@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ResponseStatus {
     SUCCESS("success"),
-    FAIL("fail");
+    ERROR("error");
 
-    private final String httpStatus;
+    private final String status;
 }
