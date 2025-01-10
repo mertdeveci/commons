@@ -1,13 +1,13 @@
-package com.application.helper;
+package com.application.utils;
 
 import com.application.entity.AbstractStatusEntity;
 import com.application.enums.Status;
 
 import java.util.Optional;
 
-public final class EntityHelper {
+public final class EntityUtils {
 
-    private EntityHelper() {}
+    private EntityUtils() {}
 
     public static boolean isStatusEquals(AbstractStatusEntity entity, Status status) {
         return Optional.ofNullable(entity).map(AbstractStatusEntity::getStatus).filter(s -> s.equals(status)).isPresent();

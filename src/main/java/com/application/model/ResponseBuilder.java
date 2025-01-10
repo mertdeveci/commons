@@ -1,7 +1,7 @@
 package com.application.model;
 
 import com.application.enums.ResponseStatus;
-import com.application.helper.DateHelper;
+import com.application.utils.DateUtils;
 
 import static com.application.enums.ResponseStatus.ERROR;
 import static com.application.enums.ResponseStatus.SUCCESS;
@@ -76,7 +76,7 @@ public class ResponseBuilder {
         }
 
         public Builder systemTime(){
-            this.response.setSystemTime(DateHelper.now().getTime());
+            this.response.setSystemTime(DateUtils.now().getTime());
             return this;
         }
 

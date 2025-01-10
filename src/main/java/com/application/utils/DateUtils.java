@@ -1,10 +1,10 @@
-package com.application.helper;
+package com.application.utils;
 
 import java.util.Date;
 
-public final class DateHelper {
+public final class DateUtils {
 
-    private DateHelper() {
+    private DateUtils() {
     }
 
     public static Date now(){
