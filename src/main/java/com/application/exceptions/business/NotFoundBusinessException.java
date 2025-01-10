@@ -1,4 +1,4 @@
-package com.application.exceptions.types;
+package com.application.exceptions.business;
 
 import com.application.exceptions.BusinessException;
 

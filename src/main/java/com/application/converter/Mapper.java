@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface Converter<I, O> {
+public interface Mapper<I, O> {
     O convert(I input);
 
     default List<O> convert(@Nonnull List<I> input){

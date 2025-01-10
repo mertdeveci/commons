@@ -1,13 +1,13 @@
 package com.application.enums;
 
-public enum EntityStatus {
+public enum Status {
     DELETED("deleted"),
     PASSIVE("passive"),
     ACTIVE("active");
 
     private final String status;
 
-    EntityStatus(String status) {
+    Status(String status) {
         this.status = status;
     }
 

@@ -2,7 +2,7 @@ package com.application.service.crud;
 
 import com.application.entity.AbstractEntity;
 import com.application.exceptions.BusinessException;
-import com.application.exceptions.types.NotFoundBusinessException;
+import com.application.exceptions.business.NotFoundBusinessException;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;

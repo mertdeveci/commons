@@ -1,7 +1,7 @@
 package com.application.service;
 
 import com.application.exceptions.BusinessException;
-import com.application.exceptions.types.AlreadyExistsBusinessException;
+import com.application.exceptions.business.AlreadyExistsBusinessException;
 
 import java.util.function.Supplier;
 

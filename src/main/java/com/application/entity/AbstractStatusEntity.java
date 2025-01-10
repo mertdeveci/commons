@@ -1,6 +1,6 @@
 package com.application.entity;
 
-import com.application.enums.EntityStatus;
+import com.application.enums.Status;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -11,13 +11,13 @@ public abstract class AbstractStatusEntity extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private EntityStatus entityStatus;
+    private Status status;
 
-    public EntityStatus getEntityStatus() {
-        return entityStatus;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setEntityStatus(EntityStatus entityStatus) {
-        this.entityStatus = entityStatus;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
