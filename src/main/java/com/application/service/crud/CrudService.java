@@ -2,6 +2,6 @@ package com.application.service.crud;
 
 import com.application.entity.AbstractEntity;
 
-public interface CrudService<T extends AbstractEntity, ID>
-        extends CreateService<T>, RetrieveService<T, ID>, UpdateService<T>, DeleteService<T> {
+public interface CrudService<ID, T extends AbstractEntity>
+        extends CreateService<T>, RetrieveService<ID, T>, UpdateService<T>, DeleteService<T> {
 }

@@ -1,20 +1,20 @@
 package com.application.service;
 
-import com.application.exceptions.CommonBusinessExceptions;
+import com.application.exceptions.BusinessException;
+import com.application.exceptions.types.AlreadyExistsBusinessException;
 
-import static com.application.exceptions.CommonBusinessExceptions.ALREADY_EXISTS;
-import static com.application.exceptions.CommonBusinessExceptions.NOT_FOUND;
+import java.util.function.Supplier;
 
 public interface ExistsService<ID> {
     boolean exists(ID id);
 
     default void exists(ID id, String errorCode){
-        exists(id, ALREADY_EXISTS, errorCode);
+        exists(id, () -> {throw new AlreadyExistsBusinessException(errorCode);});
     }
 
-    default void exists(ID id, CommonBusinessExceptions e, String errorCode){
+    default <E extends BusinessException> void exists(ID id, Supplier<E> e){
         if (exists(id)){
-            e.throwException(errorCode);
+            e.get();
         }
     }
 
@@ -23,12 +23,12 @@ public interface ExistsService<ID> {
     }
 
     default void absent(ID id, String errorCode){
-        notExists(id, NOT_FOUND, errorCode);
+        notExists(id, () -> {throw new AlreadyExistsBusinessException(errorCode);});
     }
 
-    default void notExists(ID id, CommonBusinessExceptions e, String errorCode){
+    default <E extends BusinessException> void notExists(ID id, Supplier<E> e){
         if (absent(id)){
-            e.throwException(errorCode);
+            e.get();
         }
     }
 
