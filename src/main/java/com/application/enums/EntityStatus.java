@@ -1,12 +1,17 @@
 package com.application.enums;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-@Getter
-@RequiredArgsConstructor
 public enum EntityStatus {
-    DELETED,
-    PASSIVE,
-    ACTIVE;
+    DELETED("deleted"),
+    PASSIVE("passive"),
+    ACTIVE("active");
+
+    private final String status;
+
+    EntityStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 }

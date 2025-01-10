@@ -16,19 +16,19 @@ public class ResponseBuilder {
         return builder().systemTime().status(ERROR).error(true);
     }
 
-    public Response ok(){
+    public Response success(){
         return successBuilder().build();
     }
 
-    public Response ok(String message){
+    public Response success(String message){
         return successBuilder().message(message).build();
     }
 
-    public Response ok(String message, String local){
+    public Response success(String message, String local){
         return successBuilder().message(message).local(local).build();
     }
 
-    public <T> Response ok(T body){
+    public <T> Response success(T body){
         return successBuilder().body(body).build();
     }
 
