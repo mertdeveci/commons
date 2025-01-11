@@ -9,7 +9,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>com.application</groupId>
+  <groupId>com.github.mertdeveci</groupId>
   <artifactId>commons</artifactId>
   <version>1.0.0</version>
   <packaging>jar</packaging>
