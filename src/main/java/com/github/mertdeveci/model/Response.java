@@ -3,7 +3,6 @@ package com.github.mertdeveci.model;
 public class Response {
     private String status;
     private String message;
-    private boolean error;
     private String errorCode;
     private String local;
     private long systemTime;
@@ -23,14 +22,6 @@ public class Response {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
     }
 
     public String getErrorCode() {

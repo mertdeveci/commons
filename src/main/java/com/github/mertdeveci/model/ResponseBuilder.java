@@ -9,11 +9,11 @@ import static com.github.mertdeveci.enums.ResponseStatus.SUCCESS;
 public class ResponseBuilder {
 
     private Builder successBuilder(){
-        return builder().systemTime().status(SUCCESS).error(false);
+        return builder().status(SUCCESS).systemTime();
     }
 
     private Builder errorBuilder(){
-        return builder().systemTime().status(ERROR).error(true);
+        return builder().status(ERROR).systemTime();
     }
 
     public Response success(){
@@ -62,11 +62,6 @@ public class ResponseBuilder {
 
         public Builder message(String message){
             this.response.setMessage(message);
-            return this;
-        }
-
-        public Builder error(boolean error){
-            this.response.setError(error);
             return this;
         }
 
