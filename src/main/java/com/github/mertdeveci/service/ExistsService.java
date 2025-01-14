@@ -13,7 +13,7 @@ public interface ExistsService<ID> {
     }
 
     default <E extends BusinessException> void exists(ID id, Supplier<E> e){
-        if (exists(id)){
+        if (!exists(id)){
             e.get();
         }
     }
@@ -22,11 +22,7 @@ public interface ExistsService<ID> {
         return !exists(id);
     }
 
-    default void absent(ID id, String errorCode){
-        notExists(id, () -> {throw new AlreadyExistsBusinessException(errorCode);});
-    }
-
-    default <E extends BusinessException> void notExists(ID id, Supplier<E> e){
+    default <E extends BusinessException> void absent(ID id, Supplier<E> e){
         if (absent(id)){
             e.get();
         }
