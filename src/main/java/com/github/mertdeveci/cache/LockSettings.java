@@ -2,7 +2,7 @@ package com.github.mertdeveci.cache;
 
 import java.util.concurrent.TimeUnit;
 
-public interface LockType {
+public interface LockSettings {
     String getLockName();
     default Long getTTL(){
         return 15L;

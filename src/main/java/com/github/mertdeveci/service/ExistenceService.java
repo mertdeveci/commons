@@ -6,7 +6,7 @@ import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 
 import java.util.function.Supplier;
 
-public interface ExistsService<ID> {
+public interface ExistenceService<ID> {
     boolean exists(ID id);
 
     default void exists(ID id, String errorCode){

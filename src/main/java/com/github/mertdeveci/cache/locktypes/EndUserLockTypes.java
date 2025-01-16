@@ -1,8 +1,8 @@
 package com.github.mertdeveci.cache.locktypes;
 
-import com.github.mertdeveci.cache.LockType;
+import com.github.mertdeveci.cache.LockSettings;
 
-public enum EndUserLockTypes implements LockType {
+public enum EndUserLockTypes implements LockSettings {
     REGISTRATION{
         @Override
         public String getLockName() {
