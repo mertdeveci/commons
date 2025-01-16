@@ -12,7 +12,7 @@ public interface RetrieveService<T extends AbstractEntity, ID> {
    Optional<T> retrieveById(ID id);
 
    default T retrieveById(@Nonnull ID id, @Nonnull String errorCode) {
-       return retrieveById(id, ()-> {throw new NotFoundBusinessException(errorCode);});
+       return retrieveById(id, ()-> { throw new NotFoundBusinessException(errorCode); });
    }
 
    default <E extends BusinessException> T retrieveById(@Nonnull ID id, @Nonnull Supplier<E> e){
