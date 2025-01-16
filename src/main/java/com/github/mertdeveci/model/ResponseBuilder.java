@@ -24,9 +24,7 @@ public class ResponseBuilder {
         return successBuilder().message(message).build();
     }
 
-    public Response success(String message, String local){
-        return successBuilder().message(message).local(local).build();
-    }
+    public Response success(String message, String local){ return successBuilder().message(message).local(local).build(); }
 
     public <T> Response success(T body){
         return successBuilder().body(body).build();
@@ -40,9 +38,7 @@ public class ResponseBuilder {
         return errorBuilder().message(errorMessage).build();
     }
 
-    public Response error(String errorCode, String errorMessage){
-        return errorBuilder().errorCode(errorCode).message(errorMessage).build();
-    }
+    public Response error(String errorCode, String errorMessage){ return errorBuilder().errorCode(errorCode).message(errorMessage).build(); }
 
     public Builder builder(){
         return new Builder();

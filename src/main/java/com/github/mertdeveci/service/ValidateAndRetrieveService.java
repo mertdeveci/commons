@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ValidateAndRetrieveService extends ValidateService, RetrieveService {
 
-    <T extends AbstractEntity, ID> Optional<T> validateAndRetrieve(Object validationObject, ID id);
+    <T extends AbstractEntity, ID extends Number> Optional<T> validateAndRetrieve(Object validationObject, ID id);
 
 
 }
