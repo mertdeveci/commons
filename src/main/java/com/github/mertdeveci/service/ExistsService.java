@@ -23,8 +23,8 @@ public interface ExistsService<ID> {
         return !exists(id);
     }
 
-    default boolean absent(ID id, String errorCode) {
-        return absent(id, () -> {throw new NotFoundBusinessException(errorCode);});
+    default void absent(ID id, String errorCode) {
+        absent(id, () -> {throw new NotFoundBusinessException(errorCode);});
     }
 
     default <E extends BusinessException> void absent(ID id, Supplier<E> e){

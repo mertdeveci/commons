@@ -1,4 +1,6 @@
 package com.github.mertdeveci.converter;
 
-public interface MapperEntity<I, O> extends Mapper<I, O>{
+import com.github.mertdeveci.entity.AbstractEntity;
+
+public interface MapperEntity<I extends AbstractEntity, O> extends Mapper<I, O>{
 }

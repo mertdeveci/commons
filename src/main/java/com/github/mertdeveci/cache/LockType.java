@@ -2,18 +2,14 @@ package com.github.mertdeveci.cache;
 
 import java.util.concurrent.TimeUnit;
 
-public interface LockSource {
+public interface LockType {
     String getLockName();
-    String getLockErrorMessage();
-
-    default String generateKey(String key){
-        return getLockName() + ":" + key;
-    }
-
     default Long getTTL(){
-        return 5L;
+        return 15L;
     }
-
+    default String getLockErrorMessage(){
+        return "Lock is already acquired";
+    }
     default TimeUnit getTTLUnit(){
         return TimeUnit.SECONDS;
     }
