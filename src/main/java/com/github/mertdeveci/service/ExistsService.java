@@ -23,7 +23,7 @@ public interface ExistsService<ID> {
     }
 
     default <E extends BusinessException> void absent(ID id, Supplier<E> e){
-        if (absent(id)){
+        if (!absent(id)){
             e.get();
         }
     }
