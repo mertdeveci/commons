@@ -6,8 +6,8 @@ import com.github.mertdeveci.service.crud.RetrieveService;
 import java.util.Optional;
 
 public interface ValidateAndRetrieveService extends ValidateService, RetrieveService {
-
-    <T extends AbstractEntity, ID extends Long> Optional<T> validateAndRetrieve(Object validationObject, ID id);
-
-
+    default <T extends AbstractEntity, ID extends Long> Optional<T> validateAndRetrieve(Object validationObject, ID id){
+        isValid(validationObject);
+        return retrieveById(id);
+    }
 }
