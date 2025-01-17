@@ -6,9 +6,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface Converter<I, O> {
     O convert(I input);
+
+    default Optional<O> convertOptional(@Nonnull I input){
+        return Optional.ofNullable(convert(input));
+    }
 
     default List<O> convert(@Nonnull List<I> input){
         return input.stream().map(this::convert).toList();
