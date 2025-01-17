@@ -24,11 +24,11 @@ import java.util.Objects;
 }
 
  */
-public abstract class JwtManager {
+public abstract class JwtProvider {
     private final String SECRET_KEY; // HMAC algoritması için kullanılacak anahtar
     private final long EXPIRATION_TIME; // Anahtarın geçerlilik süresi (Mikrosaniye)
 
-    public JwtManager(String secretKey, long expirationTime) {
+    public JwtProvider(String secretKey, long expirationTime) {
         this.SECRET_KEY = secretKey;
         this.EXPIRATION_TIME = expirationTime;
     }
