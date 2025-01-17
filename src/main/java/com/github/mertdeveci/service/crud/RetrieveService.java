@@ -9,13 +9,13 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface RetrieveService {
-    <T extends AbstractEntity, ID extends Number> Optional<T> retrieveById(ID id);
+    <T extends AbstractEntity, ID extends Long> Optional<T> retrieveById(ID id);
 
-   default <T extends AbstractEntity, ID extends Number> T retrieveById(@Nonnull ID id, @Nonnull String errorCode) {
+   default <T extends AbstractEntity, ID extends Long> T retrieveById(@Nonnull ID id, @Nonnull String errorCode) {
        return retrieveById(id, ()-> { throw new NotFoundBusinessException(errorCode); });
    }
 
-   default <T extends AbstractEntity, ID extends Number, E extends BusinessException> T retrieveById(@Nonnull ID id, @Nonnull Supplier<E> e){
+   default <T extends AbstractEntity, ID extends Long, E extends BusinessException> T retrieveById(@Nonnull ID id, @Nonnull Supplier<E> e){
        return (T) retrieveById(id).orElseThrow(e);
    }
 }
