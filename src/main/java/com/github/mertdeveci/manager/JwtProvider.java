@@ -2,6 +2,7 @@ package com.github.mertdeveci.manager;
 
 import com.github.mertdeveci.utils.DateUtils;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -41,8 +42,9 @@ public abstract class JwtProvider {
     /**
      * HMAC (HS256) ile JWT oluşturma
      */
-    public String createJWT(Map<String, Object> claims) {
+    public String createJWT(Map<String, Object> claims, String subject) {
         return Jwts.builder()
+                .subject(subject)
                 .claims(claims)
                 .issuedAt(DateUtils.now())
                 .expiration(new Date(DateUtils.now().getTime() + EXPIRATION_TIME))
@@ -110,7 +112,7 @@ public abstract class JwtProvider {
     public String refreshJWT(String jwt) {
         Claims claims = getClaims(jwt);
         if (Objects.nonNull(claims)) {
-            return createJWT(claims);
+            return createJWT(claims, claims.getSubject());
         }
         return null;
     }
