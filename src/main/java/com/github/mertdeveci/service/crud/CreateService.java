@@ -5,10 +5,10 @@ import jakarta.annotation.Nonnull;
 
 import java.util.List;
 
-public interface CreateService<T extends AbstractEntity>  {
-    T create(T entity);
+public interface CreateService{
+    <T extends AbstractEntity> T create(T entity);
 
-    default void create(@Nonnull List<T> entities){
+    default <T extends AbstractEntity> void create(@Nonnull List<T> entities){
          entities.forEach(this::create);
      }
 }
