@@ -15,10 +15,6 @@ public interface ExistenceService {
         return isExists(id).isPresent();
     }
 
-    default <ID extends AbstractEntity> void exists(ID id, String errorCode){
-        exists(id, () -> { throw new AlreadyExistsBusinessException(errorCode); });
-    }
-
     default  <ID extends AbstractEntity, E extends BusinessException> void exists(ID id, Supplier<E> e){
         if (!exists(id)){ e.get(); }
     }
@@ -27,12 +23,8 @@ public interface ExistenceService {
         return isExists(id).isEmpty();
     }
 
-    default <ID extends AbstractEntity> void absent(ID id, String errorCode) {
-        absent(id, () -> { throw new NotFoundBusinessException(errorCode); });
-    }
-
     default <ID extends AbstractEntity, E extends BusinessException> void absent(ID id, Supplier<E> e){
-        if (absent(id)){ e.get(); }
+        if (!absent(id)){ e.get(); }
     }
 
 }
