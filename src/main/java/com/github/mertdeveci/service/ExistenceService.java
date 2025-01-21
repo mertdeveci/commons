@@ -5,26 +5,29 @@ import com.github.mertdeveci.exceptions.BusinessException;
 import com.github.mertdeveci.exceptions.business.AlreadyExistsBusinessException;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public interface ExistenceService {
-    <ID extends AbstractEntity> Optional<?> isExists(ID id);
+    boolean isExists(Long id);
 
-    default <ID extends AbstractEntity> boolean exists(ID id){
-        return isExists(id).isPresent();
+    default void isAlreadyExists(Long id, String errorCode){
+        isAlreadyExists(id, () -> { throw new AlreadyExistsBusinessException(errorCode); });
     }
 
-    default  <ID extends AbstractEntity, E extends BusinessException> void exists(ID id, Supplier<E> e){
-        if (!exists(id)){ e.get(); }
+    default <E extends AlreadyExistsBusinessException> void isAlreadyExists(Long id, Supplier<E> e){
+        if (isExists(id)){ e.get(); }
     }
 
-    default <ID extends AbstractEntity> boolean absent(ID id) {
-        return isExists(id).isEmpty();
+    default boolean absent(Long id) {
+        return !isExists(id);
     }
 
-    default <ID extends AbstractEntity, E extends BusinessException> void absent(ID id, Supplier<E> e){
-        if (!absent(id)){ e.get(); }
+    default void isNotFound(Long id, String errorCode) {
+        isNotFound(id, ()->{ throw new  NotFoundBusinessException(errorCode); });
+    }
+
+    default <E extends NotFoundBusinessException> void isNotFound(Long id, Supplier<E> e){
+        if (absent(id)){ e.get(); }
     }
 
 }
