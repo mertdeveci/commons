@@ -8,12 +8,8 @@ import java.util.function.Supplier;
 public interface ExistenceService {
     boolean isExists(Long id);
 
-    default void ifExists(Long id, Supplier<Void> apply){
-        if (isExists(id)){ apply.get(); }
-    }
-
-    default void isAlreadyExists(Long id, String errorCode){
-        isAlreadyExists(id, () -> { throw new AlreadyExistsBusinessException(errorCode); });
+    default <T> T ifExistsDo(Long id, Supplier<T> apply){
+        return isExists(id) ? apply.get() : null;
     }
 
     default <E extends AlreadyExistsBusinessException> void isAlreadyExists(Long id, Supplier<E> e){
@@ -24,16 +20,11 @@ public interface ExistenceService {
         return !isExists(id);
     }
 
-    default void ifNotFound(Long id, Supplier<Void> apply){
-        if (absent(id)){ apply.get(); }
-    }
-
-    default void isNotFound(Long id, String errorCode) {
-        isNotFound(id, ()->{ throw new  NotFoundBusinessException(errorCode); });
+    default <T> T ifNotFoundDo(Long id, Supplier<T> apply){
+        return absent(id) ? apply.get() : null;
     }
 
     default <E extends NotFoundBusinessException> void isNotFound(Long id, Supplier<E> e){
         if (absent(id)){ e.get(); }
     }
-
 }
