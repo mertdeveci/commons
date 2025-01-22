@@ -6,9 +6,9 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public interface ValidateService {
-    boolean isValid(Object object);
+    <T> boolean isValid(T object);
 
-    default <E extends InvalidBusinessException> void validate(Object object, Supplier<E> e){
+    default <T, E extends InvalidBusinessException> void validate(T object, Supplier<E> e){
         if (isValid(object)) { e.get(); }
     }
 }
