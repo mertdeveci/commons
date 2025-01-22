@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 public interface ExistenceService {
     boolean exists(Long id);
 
-    default <T> T ifExistsThenSupply(Long id, Supplier<T> apply){
+    default <T> T ifExistsThen(Long id, Supplier<T> apply){
         return exists(id) ? apply.get() : null;
     }
 
@@ -20,7 +20,7 @@ public interface ExistenceService {
         return !exists(id);
     }
 
-    default <T> T ifNotExistsThenSupply(Long id, Supplier<T> apply){
+    default <T> T ifNotExistsThen(Long id, Supplier<T> apply){
         return notExists(id) ? apply.get() : null;
     }
 
