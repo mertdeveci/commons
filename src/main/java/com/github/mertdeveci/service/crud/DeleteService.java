@@ -5,10 +5,10 @@ import jakarta.annotation.Nonnull;
 
 import java.util.List;
 
-public interface DeleteService {
-    <T extends AbstractEntity> void delete(T entity);
+public interface DeleteService<T extends AbstractEntity> {
+    void delete(T entity);
 
-    default <T extends AbstractEntity> void delete(@Nonnull List<T> entities){
+    default void delete(@Nonnull List<T> entities){
         entities.forEach(this::delete);
     }
 }
