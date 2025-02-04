@@ -11,12 +11,12 @@ import java.util.function.Supplier;
 public interface RetrieveService<T extends AbstractEntity> {
     Optional<T> retrieveById(Long id);
 
-    default <E extends NotFoundBusinessException> T retrieveById(@Nonnull Long id, @Nonnull Supplier<E> e){
+    default <E extends NotFoundBusinessException> T retrieveByIdOrElseThrow(@Nonnull Long id, @Nonnull Supplier<E> e){
         Optional<T> entity = retrieveById(id);
-        if (entity.isPresent()) {
-            return entity.get();
+        if (entity.isEmpty()) {
+            throw e.get();
         }
-        throw e.get();
+        return entity.get();
     }
 
     default T retrieveAndValidate(Long id, Consumer<T> validatorConsumer){
