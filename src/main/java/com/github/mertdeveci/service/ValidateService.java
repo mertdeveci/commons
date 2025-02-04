@@ -1,9 +1,7 @@
 package com.github.mertdeveci.service;
 
 import com.github.mertdeveci.exceptions.validation.InvalidBusinessException;
-
-import java.util.Objects;
-import java.util.function.Supplier;
+import com.github.mertdeveci.service.functionals.ExceptionSupplier;
 
 public interface ValidateService<T> {
     boolean isValid(T object);

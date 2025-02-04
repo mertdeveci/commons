@@ -5,5 +5,8 @@ import com.github.mertdeveci.service.crud.DeleteService;
 import com.github.mertdeveci.service.crud.RetrieveService;
 import com.github.mertdeveci.service.crud.UpdateService;
 
-public interface CrudManager extends CreateService, RetrieveService, DeleteService, UpdateService {
+public abstract class CrudManager extends RetrieveService implements CreateService, DeleteService, UpdateService {
+    public CrudManager(String defaultErrorMessage) {
+        super(defaultErrorMessage);
+    }
 }

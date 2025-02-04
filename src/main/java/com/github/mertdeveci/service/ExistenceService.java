@@ -2,6 +2,7 @@ package com.github.mertdeveci.service;
 
 import com.github.mertdeveci.exceptions.business.AlreadyExistsBusinessException;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
+import com.github.mertdeveci.service.functionals.ExceptionSupplier;
 
 import java.util.function.Supplier;
 

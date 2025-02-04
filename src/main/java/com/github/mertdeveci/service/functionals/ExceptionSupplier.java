@@ -1,4 +1,4 @@
-package com.github.mertdeveci.service;
+package com.github.mertdeveci.service.functionals;
 
 import com.github.mertdeveci.exceptions.BusinessException;
 

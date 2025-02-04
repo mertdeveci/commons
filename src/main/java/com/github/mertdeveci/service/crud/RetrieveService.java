@@ -2,21 +2,25 @@ package com.github.mertdeveci.service.crud;
 
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
-import com.github.mertdeveci.service.ExceptionSupplier;
+import com.github.mertdeveci.service.functionals.ExceptionSupplier;
+import com.github.mertdeveci.service.functionals.Validator;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
-public interface RetrieveService<T extends AbstractEntity> {
-    Optional<T> retrieveById(Long id);
+public abstract class RetrieveService<T extends AbstractEntity> {
+    protected abstract Optional<T> retrieveById(Long id);
+    private final String DEFAULT_ERROR_MESSAGE;
 
-    default T retrieveByIdOrElseThrow(@Nonnull Long id){
-        return retrieveById(id).orElseThrow(() -> new NotFoundBusinessException(DEFAULT_ERROR_MESSAGE));
+    public RetrieveService(String defaultErrorMessage) {
+        DEFAULT_ERROR_MESSAGE = defaultErrorMessage;
     }
 
-    default <E extends NotFoundBusinessException> T retrieveByIdOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
+    public T retrieveByIdOrElseThrow(@Nonnull Long id){
+        return retrieveByIdOrElseThrow(id, () -> new NotFoundBusinessException(DEFAULT_ERROR_MESSAGE));
+    }
+
+    public <E extends NotFoundBusinessException> T retrieveByIdOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
         Optional<T> entity = retrieveById(id);
         if (entity.isEmpty()) {
             throw e.get();
@@ -24,12 +28,7 @@ public interface RetrieveService<T extends AbstractEntity> {
         return entity.get();
     }
 
-    default T retrieveAndValidate(Long id, Consumer<T> validatorConsumer){
-        Optional<T> optional = retrieveById(id);
-        if (optional.isEmpty()) {
-            return null;
-        }
-        validatorConsumer.accept(optional.get());
-        return optional.get();
+    public T retrieveAndValidate(Long id, Validator<T> validator){
+        return retrieveById(id).map(validator::validate).orElse(null);
     }
 }
