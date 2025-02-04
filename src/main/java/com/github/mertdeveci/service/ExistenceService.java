@@ -12,7 +12,7 @@ public interface ExistenceService {
         return exists(id) ? apply.get() : null;
     }
 
-    default <E extends AlreadyExistsBusinessException> void isAlreadyExists(Long id, Supplier<E> e){
+    default <E extends AlreadyExistsBusinessException> void isAlreadyExists(Long id, ExceptionSupplier<E> e){
         if (exists(id)){ e.get(); }
     }
 
@@ -24,7 +24,7 @@ public interface ExistenceService {
         return notExists(id) ? apply.get() : null;
     }
 
-    default <E extends NotFoundBusinessException> void isNotFound(Long id, Supplier<E> e){
+    default <E extends NotFoundBusinessException> void isNotFound(Long id, ExceptionSupplier<E> e){
         if (notExists(id)){ e.get(); }
     }
 }
