@@ -14,7 +14,7 @@ public abstract class CrudManager<T extends AbstractEntity> {
     private final UpdateService<T> updateService;
     private final DeleteService<T> deleteService;
 
-    protected CrudManager(RetrieveService<T> retrieveService, CreateService<T> createService, UpdateService<T> updateService, DeleteService<T> deleteService) {
+    public CrudManager(RetrieveService<T> retrieveService, CreateService<T> createService, UpdateService<T> updateService, DeleteService<T> deleteService) {
         this.retrieveService = retrieveService;
         this.createService = createService;
         this.updateService = updateService;
