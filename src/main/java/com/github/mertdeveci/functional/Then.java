@@ -1,4 +1,4 @@
-package com.github.mertdeveci.service.functionals;
+package com.github.mertdeveci.functional;
 
 @FunctionalInterface
 public interface Then<T> {

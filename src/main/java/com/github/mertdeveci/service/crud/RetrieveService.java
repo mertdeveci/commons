@@ -2,8 +2,8 @@ package com.github.mertdeveci.service.crud;
 
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
-import com.github.mertdeveci.service.functionals.ExceptionSupplier;
-import com.github.mertdeveci.service.functionals.Then;
+import com.github.mertdeveci.functional.ExceptionSupplier;
+import com.github.mertdeveci.functional.Then;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
