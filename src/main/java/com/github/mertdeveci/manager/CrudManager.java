@@ -21,8 +21,8 @@ public abstract class CrudManager<T extends AbstractEntity> {
         this.deleteService = deleteService;
     }
 
-    public abstract <K extends Request, L extends Response> K create(K request);
-    public abstract <K extends Request, L extends Response> K retrieve(K request);
-    public abstract <K extends Request, L extends Response> K update(K request);
-    public abstract <K extends Request, L extends Response> K delete(K request);
+    public abstract <L extends Response, K extends Request> L create(K request);
+    public abstract <L extends Response, K extends Request> L retrieve(K request);
+    public abstract <L extends Response, K extends Request> L update(K request);
+    public abstract <L extends Response, K extends Request> L delete(K request);
 }
