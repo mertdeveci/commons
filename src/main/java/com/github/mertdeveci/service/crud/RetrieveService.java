@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface RetrieveService<T extends AbstractEntity> {
     Optional<T> retrieveById(Long id);
 
-    default <E extends NotFoundBusinessException> T retrieveByIdOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
+    default <E extends NotFoundBusinessException> T retrieveOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
         Optional<T> entity = retrieveById(id);
         if (entity.isEmpty()) {
             throw e.get();
