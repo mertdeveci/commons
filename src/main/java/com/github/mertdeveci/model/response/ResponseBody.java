@@ -1,4 +1,4 @@
-package com.github.mertdeveci.model;
+package com.github.mertdeveci.model.response;
 
 public class ResponseBody<T> {
     private T data;
