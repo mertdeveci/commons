@@ -5,6 +5,7 @@ import com.github.mertdeveci.entity.AbstractEntity;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
+import java.util.Objects;
 
 public interface CreateService<T extends AbstractEntity> {
     T create(T entity);
@@ -15,6 +16,6 @@ public interface CreateService<T extends AbstractEntity> {
 
      default <V> T createAndGet(V entityVo, EntityMapper<V, T> entityMapper){
          T entity = entityMapper.convert(entityVo);
-         return create(entity);
+         return Objects.isNull(entity) ? null : create(entity);
      }
 }
