@@ -15,7 +15,7 @@ public interface CreateService<T extends AbstractEntity> {
      }
 
      default <V> T createAndGet(V entityVo, EntityMapper<V, T> entityMapper){
-         T entity = entityMapper.convert(entityVo);
+         T entity = entityMapper.toEntity(entityVo);
          return Objects.isNull(entity) ? null : create(entity);
      }
 }
