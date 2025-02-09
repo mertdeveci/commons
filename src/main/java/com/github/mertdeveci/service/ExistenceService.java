@@ -7,6 +7,7 @@ import com.github.mertdeveci.functional.ExceptionSupplier;
 import java.util.function.Supplier;
 
 public interface ExistenceService {
+
     boolean exists(Long id);
 
     default <T> T ifExistsThen(Long id, Supplier<T> apply){

@@ -6,8 +6,8 @@ import com.github.mertdeveci.functional.ExceptionSupplier;
 
 public interface RequestValidator<I, O extends Record> extends Mapper<I, O>, ValidatorService<I> {
 
-    default <E extends InvalidBusinessException> O validateAndMap(I input, ExceptionSupplier<E> e) {
-        this.validate(input, e);
-        return this.convert(input);
+    default <E extends InvalidBusinessException> O validateAndMap(I request, ExceptionSupplier<E> e) {
+        this.validate(request, e);
+        return this.convert(request);
     }
 }

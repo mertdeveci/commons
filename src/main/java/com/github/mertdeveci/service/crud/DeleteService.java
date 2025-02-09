@@ -6,6 +6,7 @@ import jakarta.annotation.Nonnull;
 import java.util.List;
 
 public interface DeleteService<T extends AbstractEntity> {
+
     void delete(T entity);
 
     default void delete(@Nonnull List<T> entities){
