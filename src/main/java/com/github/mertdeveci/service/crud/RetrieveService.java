@@ -2,10 +2,11 @@ package com.github.mertdeveci.service.crud;
 
 import com.github.mertdeveci.converter.VoMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
+import com.github.mertdeveci.error.DefaultError;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;
 import com.github.mertdeveci.functional.Then;
-import com.github.mertdeveci.utils.DefaultErrorGenerator;
+import com.github.mertdeveci.error.DefaultErrorManager;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
@@ -17,8 +18,8 @@ public interface RetrieveService<T extends AbstractEntity> {
         return retrieveById(id).orElseThrow(e);
     }
 
-    default T retrieveOrElseThrow(@Nonnull Long id, @Nonnull DefaultErrorGenerator.Error error) {
-        return retrieveById(id).orElseThrow(() -> new NotFoundBusinessException(error.getCode()));
+    default T retrieveOrElseThrow(@Nonnull Long id, @Nonnull DefaultError defaultError) {
+        return retrieveById(id).orElseThrow(() -> new NotFoundBusinessException(defaultError.getCode()));
     }
 
     default T retrieveAndThen(Long id, Then<T> then){
