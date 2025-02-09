@@ -1,4 +1,4 @@
-package com.github.mertdeveci.model.request;
+package com.github.mertdeveci.request;
 
 public class Request {
     private String locale;

@@ -1,4 +1,4 @@
-package com.github.mertdeveci.model.response;
+package com.github.mertdeveci.response;
 
 import com.github.mertdeveci.enums.ResponseStatus;
 import com.github.mertdeveci.utils.DateUtils;
