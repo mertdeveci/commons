@@ -2,7 +2,6 @@ package com.github.mertdeveci.service.crud;
 
 import com.github.mertdeveci.converter.VoMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
-import com.github.mertdeveci.error.DefaultError;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;
 import com.github.mertdeveci.functional.Then;
@@ -15,10 +14,6 @@ public interface RetrieveService<T extends AbstractEntity> {
 
     default <E extends NotFoundBusinessException> T retrieveOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
         return retrieveById(id).orElseThrow(e);
-    }
-
-    default T retrieveOrElseThrow(@Nonnull Long id, @Nonnull DefaultError defaultError) {
-        return retrieveById(id).orElseThrow(() -> new NotFoundBusinessException(defaultError.getCode()));
     }
 
     default T retrieveAndThen(Long id, Then<T> then){
