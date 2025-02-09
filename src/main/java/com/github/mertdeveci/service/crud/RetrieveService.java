@@ -6,7 +6,6 @@ import com.github.mertdeveci.error.DefaultError;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;
 import com.github.mertdeveci.functional.Then;
-import com.github.mertdeveci.error.DefaultErrorManager;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
