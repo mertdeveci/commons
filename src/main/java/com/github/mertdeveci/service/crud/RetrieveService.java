@@ -5,12 +5,11 @@ import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;
 import com.github.mertdeveci.functional.Then;
-import com.github.mertdeveci.service.EntityService;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
 
-public interface RetrieveService<T extends AbstractEntity> extends EntityService {
+public interface RetrieveService<T extends AbstractEntity> {
     Optional<T> retrieveById(Long id);
 
     default <E extends NotFoundBusinessException> T retrieveOrElseThrow(@Nonnull Long id, @Nonnull ExceptionSupplier<E> e){
