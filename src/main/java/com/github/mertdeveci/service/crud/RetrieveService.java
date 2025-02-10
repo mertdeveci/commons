@@ -1,6 +1,6 @@
 package com.github.mertdeveci.service.crud;
 
-import com.github.mertdeveci.converter.VoMapper;
+import com.github.mertdeveci.converter.mapper.VoMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;

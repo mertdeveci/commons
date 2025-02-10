@@ -1,4 +1,4 @@
-package com.github.mertdeveci.converter;
+package com.github.mertdeveci.converter.mapper;
 
 import com.github.mertdeveci.entity.AbstractEntity;
 

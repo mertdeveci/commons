@@ -1,6 +1,6 @@
 package com.github.mertdeveci.service.crud;
 
-import com.github.mertdeveci.converter.EntityMapper;
+import com.github.mertdeveci.converter.mapper.EntityMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
 import jakarta.annotation.Nonnull;
 
