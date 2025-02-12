@@ -14,12 +14,12 @@ public interface DeleteService<T extends AbstractEntity> {
         entities.forEach(this::delete);
     }
 
-    default <V> void deleteAndMap(V entityVo, EntityMapper<V, T> entityMapper){
+    default <V> void deleteAndMap(V entityVo, EntityMapper<T,V> entityMapper){
         T entity = entityMapper.toEntity(entityVo);
         delete(entity);
     }
 
-    default <V> void deleteAndMap(List<V> entityVoList, EntityMapper<V, T> entityMapper){
+    default <V> void deleteAndMap(List<V> entityVoList, EntityMapper<T,V> entityMapper){
         entityVoList.stream().map(entityMapper::toEntity).forEach(this::delete);
     }
 

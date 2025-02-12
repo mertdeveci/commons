@@ -17,7 +17,7 @@ public interface CreateService<T extends AbstractEntity> {
          entities.forEach(this::create);
      }
 
-     default <V> T mapAndCreate(V entityVo, EntityMapper<V, T> entityMapper){
+     default <V> T mapAndCreate(V entityVo, EntityMapper<T,V> entityMapper){
          T entity = entityMapper.toEntity(entityVo);
          return create(entity);
      }
@@ -38,12 +38,12 @@ public interface CreateService<T extends AbstractEntity> {
         return converter.convert(k);
     }
 
-    default <V> void createAndMapAndThen(V entityVo, EntityMapper<V, T> entityMapper, Then<T> then){
+    default <V> void createAndMapAndThen(V entityVo, EntityMapper<T,V> entityMapper, Then<T> then){
         T t = mapAndCreate(entityVo, entityMapper);
         then.apply(t);
     }
 
-    default <V, K> K createAndMapAndThenGet(V entityVo, EntityMapper<V, T> entityMapper, ThenGet<T, K> thenGet){
+    default <V, K> K createAndMapAndThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T, K> thenGet){
         T t = mapAndCreate(entityVo, entityMapper);
         return thenGet.applyAndRetrieve(t);
     }
