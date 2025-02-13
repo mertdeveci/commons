@@ -1,15 +1,16 @@
 package com.github.mertdeveci.service.crud;
 
+import com.github.mertdeveci.converter.Converter;
 import com.github.mertdeveci.converter.mapper.EntityMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.enums.Status;
 import com.github.mertdeveci.exceptions.business.NotFoundBusinessException;
 import com.github.mertdeveci.functional.ExceptionSupplier;
-import com.github.mertdeveci.functional.Then;
 import com.github.mertdeveci.functional.ThenGet;
 import jakarta.annotation.Nonnull;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 
 public interface RetrieveService<T extends AbstractEntity> {
     Optional<T> retrieveByIdAndStatus(Long id, Status status);
@@ -22,52 +23,53 @@ public interface RetrieveService<T extends AbstractEntity> {
         return retrieveById(id).orElseThrow(notFoundException);
     }
 
-    default <E extends NotFoundBusinessException> void findByIdAndThen(@Nonnull Long id, @Nonnull Then<T> then, @Nonnull ExceptionSupplier<E> notFoundException){
-        T t = retrieveByIdOrElseThrow(id, notFoundException);
-        then.apply(t);
+    default <V> V retrieveByIdAndMapToVo(@Nonnull Long id, @Nonnull EntityMapper<T,V> mapper){
+        return retrieveById(id).map(mapper::toVo).orElse(null);
     }
 
-    default <K, E extends NotFoundBusinessException> K retrieveByIdAndThenGet(@Nonnull Long id, @Nonnull ThenGet<T, K> thenGet, @Nonnull ExceptionSupplier<E> notFoundException){
+    default <V, E extends NotFoundBusinessException> V retrieveByIdAndMapToVo(@Nonnull Long id, @Nonnull EntityMapper<T, V> mapper, @Nonnull ExceptionSupplier<E> notFoundException){
+        T t = retrieveByIdOrElseThrow(id, notFoundException);
+        return mapper.toVo(t);
+    }
+
+    default <E extends NotFoundBusinessException> void findByIdAndThen(@Nonnull Long id, @Nonnull Consumer<T> consumer, @Nonnull ExceptionSupplier<E> notFoundException){
+        T t = retrieveByIdOrElseThrow(id, notFoundException);
+        consumer.accept(t);
+    }
+
+    default <K, E extends NotFoundBusinessException> K retrieveByIdAndThenGet(@Nonnull Long id, @Nonnull ThenGet<T,K> thenGet, @Nonnull ExceptionSupplier<E> notFoundException){
         T t = retrieveByIdOrElseThrow(id, notFoundException);
         return thenGet.applyAndRetrieve(t);
     }
 
-    default <R extends AbstractEntity> void findByIdAndMapAndThen(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper, @Nonnull Then<R> then){
-        retrieveById(id).map(mapper::toVo).map(then::apply);
+    default <V> void findByIdAndMapToVoAndThen(@Nonnull Long id, @Nonnull EntityMapper<T,V> mapper, @Nonnull Consumer<V> consumer){
+        retrieveById(id).map(mapper::toVo).ifPresent(consumer);
     }
 
-    default <R,K> K retrieveByIdAndMapAndThenGet(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper, @Nonnull ThenGet<R, K> thenGet){
+    default <V,K> K retrieveByIdAndMapToVoAndThenGet(@Nonnull Long id, @Nonnull EntityMapper<T,V> mapper, @Nonnull ThenGet<V,K> thenGet){
         return retrieveById(id).map(mapper::toVo).map(thenGet::applyAndRetrieve).orElse(null);
     }
 
-    default <R extends AbstractEntity, E extends NotFoundBusinessException> void findByIdAndMapAndThen(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper, @Nonnull Then<R> then, @Nonnull ExceptionSupplier<E> notFoundException){
+    default <V,E extends NotFoundBusinessException> void findByIdAndMapToVoAndThen(@Nonnull Long id, @Nonnull EntityMapper<T,V> mapper, @Nonnull Consumer<V> consumer, @Nonnull ExceptionSupplier<E> notFoundException){
         T t = retrieveByIdOrElseThrow(id, notFoundException);
-        R mapped = mapper.toVo(t);
-        then.apply(mapped);
+        V V = mapper.toVo(t);
+        consumer.accept(V);
     }
 
-    default <R extends AbstractEntity, K, E extends NotFoundBusinessException> K retrieveByIdAndMapAndThenGet(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper, @Nonnull ThenGet<R,K> thenGet, @Nonnull ExceptionSupplier<E> notFoundException){
+    default <V,K,E extends NotFoundBusinessException> K retrieveByIdAndMapToVoAndThenGet(@Nonnull Long id, @Nonnull EntityMapper<T,V> mapper, @Nonnull ThenGet<V,K> thenGet, @Nonnull ExceptionSupplier<E> notFoundException){
         T t = retrieveByIdOrElseThrow(id, notFoundException);
-        R r = mapper.toVo(t);
-        return thenGet.applyAndRetrieve(r);
+        V v = mapper.toVo(t);
+        return thenGet.applyAndRetrieve(v);
     }
 
-    default <R> R retrieveByIdAndMap(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper){
-        return retrieveById(id).map(mapper::toVo).orElse(null);
+    default <V,K> V retrieveByIdAndThenGetAndMapToVo(@Nonnull Long id, @Nonnull ThenGet<T,K> then, @Nonnull Converter<K,V> converter){
+        return retrieveById(id).map(then::applyAndRetrieve).map(converter::convert).orElse(null);
     }
 
-    default <R extends AbstractEntity, E extends NotFoundBusinessException> R retrieveByIdAndMap(@Nonnull Long id, @Nonnull EntityMapper<T, R> mapper, @Nonnull ExceptionSupplier<E> notFoundException){
-        return retrieveById(id).map(mapper::toVo).orElseThrow(notFoundException);
-    }
-
-    default <R extends AbstractEntity, K> R retrieveByIdAndThenGetAndMap(@Nonnull Long id, @Nonnull ThenGet<T,K> then, @Nonnull EntityMapper<R,K> mapper){
-        return retrieveById(id).map(then::applyAndRetrieve).map(mapper::toEntity).orElse(null);
-    }
-
-    default <R extends AbstractEntity, K, E extends NotFoundBusinessException> R retrieveByIdAndThenGetAndMap(@Nonnull Long id, @Nonnull ThenGet<T,K> then, @Nonnull EntityMapper<R,K> mapper, @Nonnull ExceptionSupplier<E> notFoundException){
+    default <V,K,E extends NotFoundBusinessException> V retrieveByIdAndThenGetAndMapToVo(@Nonnull Long id, @Nonnull ThenGet<T,K> then, @Nonnull Converter<K,V> mapper, @Nonnull ExceptionSupplier<E> notFoundException){
         T t = retrieveByIdOrElseThrow(id, notFoundException);
         K k = then.applyAndRetrieve(t);
-        return mapper.toEntity(k);
+        return mapper.convert(k);
     }
 
 }
