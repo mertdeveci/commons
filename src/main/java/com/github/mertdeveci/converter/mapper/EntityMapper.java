@@ -1,14 +1,13 @@
 package com.github.mertdeveci.converter.mapper;
 
 import com.github.mertdeveci.entity.AbstractEntity;
-import com.github.mertdeveci.vo.BaseVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-public interface EntityMapper<E extends AbstractEntity,V extends BaseVo> {
+public interface EntityMapper<E extends AbstractEntity,V> {
     V toVo(E entity);
     E toEntity(V vo);
 

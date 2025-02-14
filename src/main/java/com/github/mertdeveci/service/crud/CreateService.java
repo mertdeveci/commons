@@ -5,7 +5,6 @@ import com.github.mertdeveci.converter.mapper.EntityMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.functional.ThenGet;
 import com.github.mertdeveci.service.BaseEntityService;
-import com.github.mertdeveci.vo.BaseVo;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public interface CreateService<T extends AbstractEntity> extends BaseEntityServi
          entities.forEach(this::create);
      }
 
-     default <V extends BaseVo> T mapAndCreate(V entityVo, EntityMapper<T,V> entityMapper){
+     default <V> T mapAndCreate(V entityVo, EntityMapper<T,V> entityMapper){
         T entity = entityMapper.toEntity(entityVo);
         return create(entity);
      }
@@ -30,7 +29,7 @@ public interface CreateService<T extends AbstractEntity> extends BaseEntityServi
         consumer.accept(t);
     }
 
-    default <V extends BaseVo> void mapAndCreateAndThen(V entityVo, EntityMapper<T,V> entityMapper, Consumer<T> consumer){
+    default <V> void mapAndCreateAndThen(V entityVo, EntityMapper<T,V> entityMapper, Consumer<T> consumer){
         T entity = entityMapper.toEntity(entityVo);
         T t = create(entity);
         consumer.accept(t);
@@ -41,7 +40,7 @@ public interface CreateService<T extends AbstractEntity> extends BaseEntityServi
         return thenGet.applyAndRetrieve(t);
     }
 
-    default <V extends BaseVo,K> K mapAndCreateAndThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T,K> thenGet){
+    default <V,K> K mapAndCreateAndThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T,K> thenGet){
         T entity = entityMapper.toEntity(entityVo);
         T t = create(entity);
         return thenGet.applyAndRetrieve(t);
@@ -53,12 +52,12 @@ public interface CreateService<T extends AbstractEntity> extends BaseEntityServi
         return converter.convert(k);
     }
 
-    default <V extends BaseVo> void createAndMapAndThen(V entityVo, EntityMapper<T,V> entityMapper, Consumer<T> then){
+    default <V> void createAndMapAndThen(V entityVo, EntityMapper<T,V> entityMapper, Consumer<T> then){
         T t = mapAndCreate(entityVo, entityMapper);
         then.accept(t);
     }
 
-    default <V extends BaseVo, K> K createAndMapAndThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T, K> thenGet){
+    default <V, K> K createAndMapAndThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T, K> thenGet){
         T t = mapAndCreate(entityVo, entityMapper);
         return thenGet.applyAndRetrieve(t);
     }
