@@ -4,12 +4,15 @@ import com.github.mertdeveci.converter.mapper.EntityMapper;
 import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.functional.Then;
 import com.github.mertdeveci.functional.ThenGet;
+import com.github.mertdeveci.service.BaseEntityService;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
 
-public interface UpdateService<T extends AbstractEntity> {
-    T update(T entity);
+public interface UpdateService<T extends AbstractEntity> extends BaseEntityService {
+    default T update(T entity){
+        return save(entity);
+    }
 
     default void update(@Nonnull List<T> entities){
         entities.forEach(this::update);
@@ -39,6 +42,5 @@ public interface UpdateService<T extends AbstractEntity> {
         T t = update(entity);
         return thenGet.applyAndRetrieve(t);
     }
-
 
 }
