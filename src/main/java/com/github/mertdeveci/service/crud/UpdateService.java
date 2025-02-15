@@ -5,6 +5,7 @@ import com.github.mertdeveci.entity.AbstractEntity;
 import com.github.mertdeveci.functional.Then;
 import com.github.mertdeveci.functional.ThenGet;
 import com.github.mertdeveci.service.BaseEntityService;
+import com.github.mertdeveci.vo.BaseVo;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -18,17 +19,17 @@ public interface UpdateService<T extends AbstractEntity> extends BaseEntityServi
         entities.forEach(this::update);
     }
 
-    default <V> T mapAndUpdate(V entityVo, EntityMapper<T,V> entityMapper){
+    default <V extends BaseVo> T mapAndUpdate(V entityVo, EntityMapper<T,V> entityMapper){
         T entity = entityMapper.toEntity(entityVo);
         return update(entity);
     }
 
-    default <V> void mapAndUpdateThen(V entityVo, EntityMapper<T,V> entityMapper, Then<T> then){
+    default <V extends BaseVo> void mapAndUpdateThen(V entityVo, EntityMapper<T,V> entityMapper, Then<T> then){
         T t = mapAndUpdate(entityVo, entityMapper);
         then.apply(t);
     }
 
-    default <V, K> K mapAndUpdateThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T,K> thenGet){
+    default <V extends BaseVo, K> K mapAndUpdateThenGet(V entityVo, EntityMapper<T,V> entityMapper, ThenGet<T,K> thenGet){
         T t = mapAndUpdate(entityVo, entityMapper);
         return thenGet.applyAndRetrieve(t);
     }
