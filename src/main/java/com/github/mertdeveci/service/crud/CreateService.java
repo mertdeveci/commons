@@ -8,7 +8,6 @@ import com.github.mertdeveci.functional.ThenGet;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
-import java.util.Objects;
 
 public interface CreateService<T extends AbstractEntity> {
     T create(T entity);
